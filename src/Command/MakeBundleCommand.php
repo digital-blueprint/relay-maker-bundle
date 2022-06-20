@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Dbp\Relay\MakerBundle\Command;
 
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -58,13 +59,27 @@ class MakeBundleCommand extends Command
             return Command::SUCCESS;
         }
 
+        $progressBar = new ProgressBar($output);
+        $progressBar->setFormatDefinition('custom', ' %current%/%max% [%bar%] %percent:3s%% -- %message%');
+        $progressBar->setFormat('custom');
+        $progressBar->setMessage('Creating a new bundle...');
+        $progressBar->start(5);
+
+        // Create the bundle directory
+        $progressBar->setMessage('Create the bundle directory...');
         $filesystem = new Filesystem();
         $bundles = $this->projectRoot.'/bundles';
         $filesystem->mkdir($bundles);
         $dirName = "$vendor-$category-$uniqueName";
         $cloneDir = $bundles.'/'.$dirName;
+        $progressBar->advance();
 
-        // Clone the template
+        if ($filesystem->exists($cloneDir)) {
+            throw new \Exception("'$cloneDir' already exists. aborting.");
+        }
+
+        // Clone the bundle template
+        $progressBar->setMessage('Clone the bundle template...');
         $process = new Process([
             'git',
             'clone',
@@ -73,8 +88,10 @@ class MakeBundleCommand extends Command
         ], $this->projectRoot);
         $process->mustRun();
         $filesystem->remove($cloneDir.'/.git');
+        $progressBar->advance();
 
         // Rename the template
+        $progressBar->setMessage('Rename the template...');
         $process = new Process([
             './.bundle-rename',
             '--vendor='.$vendor,
@@ -84,19 +101,30 @@ class MakeBundleCommand extends Command
             '--example-entity='.$exampleEntity,
         ], $cloneDir);
         $process->mustRun();
+        $progressBar->advance();
 
         // Register the package with composer
+        $progressBar->setMessage('Register the package with composer...');
         $process = new Process([
             'composer', 'config', "repositories.$dirName",  'path', "./bundles/$dirName",
         ], $this->projectRoot);
         $process->mustRun();
+        $progressBar->advance();
 
-        // Install the package
+        // Install the package with composer
+        $progressBar->setMessage('Install the package with composer...');
         $packageName = "$vendor/$category-$uniqueName-bundle";
         $process = new Process([
             'composer', 'require', "$packageName=@dev",
         ], $this->projectRoot);
         $process->mustRun();
+        $progressBar->advance();
+
+        $progressBar->finish();
+        $output->writeln("\n");
+        $output->writeln("* The package '$packageName' was created under '$cloneDir'");
+        $output->writeln('* The package was added to your composer.json and installed');
+        $output->writeln('* The containing bundle was registered with your application');
 
         return Command::SUCCESS;
     }
