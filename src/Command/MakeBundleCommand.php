@@ -30,7 +30,7 @@ class MakeBundleCommand extends Command
     protected function configure()
     {
         $this->setDescription('Create a new bundle');
-        $this->addOption('vendor', null, InputOption::VALUE_REQUIRED, 'Vendor', 'dbp');
+        $this->addOption('vendor', null, InputOption::VALUE_REQUIRED, 'Vendor');
         $this->addOption('category', null, InputOption::VALUE_REQUIRED, 'Category', 'relay');
         $this->addOption('unique-name', null, InputOption::VALUE_REQUIRED, 'Unique Name');
         $this->addOption('friendly-name', null, InputOption::VALUE_REQUIRED, 'Friendly Name');
@@ -84,6 +84,9 @@ class MakeBundleCommand extends Command
         $vendor = $input->getOption('vendor');
         $category = $input->getOption('category');
         $uniqueName = $input->getOption('unique-name');
+        if ($vendor === null) {
+            throw new \RuntimeException('--vendor needs be passed');
+        }
         if ($uniqueName === null) {
             throw new \RuntimeException('--unique-name needs be passed');
         }

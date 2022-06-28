@@ -21,7 +21,7 @@ Usage:
   dbp:relay:maker:make:bundle [options]
 
 Options:
-      --vendor=VENDOR                  Vendor [default: "dbp"]
+      --vendor=VENDOR                  Vendor
       --category=CATEGORY              Category [default: "relay"]
       --unique-name=UNIQUE-NAME        Unique Name
       --friendly-name=FRIENDLY-NAME    Friendly Name
