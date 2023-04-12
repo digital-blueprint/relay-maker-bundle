@@ -138,7 +138,7 @@ class MakeBundleCommand extends Command
             $process = new Process([
                 'git',
                 'clone',
-                'https://gitlab.tugraz.at/dbp/relay/dbp-relay-template-bundle',
+                'https://github.com/digital-blueprint/relay-template-bundle',
                 $cloneDir,
             ], $this->projectRoot);
             $process->mustRun();
