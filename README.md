@@ -1,6 +1,6 @@
 # DbpRelayMakerBundle
 
-[GitLab](https://gitlab.tugraz.at/dbp/relay/dbp-relay-maker-bundle) |
+[GitHub](https://github.com/digital-blueprint/relay-maker-bundle) |
 [Packagist](https://packagist.org/packages/dbp/relay-maker-bundle)
 
 The maker bundle bundle provides Symfony commands for creating commonly required
