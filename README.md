@@ -3,6 +3,8 @@
 [GitHub](https://github.com/digital-blueprint/relay-maker-bundle) |
 [Packagist](https://packagist.org/packages/dbp/relay-maker-bundle)
 
+[![Test](https://github.com/digital-blueprint/relay-maker-bundle/actions/workflows/test.yml/badge.svg)](https://github.com/digital-blueprint/relay-maker-bundle/actions/workflows/test.yml)
+
 The maker bundle bundle provides Symfony commands for creating commonly required
 code constructs. It's inspired by the [Symfony
 MakerBundle](https://symfony.com/bundles/SymfonyMakerBundle/current/index.html)
