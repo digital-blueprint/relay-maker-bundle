@@ -132,17 +132,19 @@ class MakeBundleCommand extends Command
         }
         $progressBar->advance();
 
-        // Clone the bundle template
+        // Clone the latest version of the bundle template
         $progressBar->setMessage('Clone the bundle template...');
         if (!$dryRun) {
             $process = new Process([
-                'git',
-                'clone',
-                'https://github.com/digital-blueprint/relay-template-bundle',
+                'composer',
+                'create-project',
+                '--prefer-source',
+                '--no-install',
+                '--remove-vcs',
+                'dbp/relay-template-bundle',
                 $cloneDir,
             ], $this->projectRoot);
             $process->mustRun();
-            $filesystem->remove($cloneDir.'/.git');
         }
         $progressBar->advance();
 
