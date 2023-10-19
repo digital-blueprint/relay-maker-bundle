@@ -1,3 +1,7 @@
+# v0.1.8
+
+* Some minor dependency requirement fixes
+
 # v0.1.7
 
 * `make:bundle` now installs the latest template bundle version instead of the
