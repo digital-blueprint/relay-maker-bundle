@@ -6,6 +6,7 @@ namespace Dbp\Relay\MakerBundle\Command;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
+use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -16,7 +17,6 @@ use Symfony\Component\Process\Process;
 
 class MakeBundleCommand extends Command
 {
-    protected static $defaultName = 'dbp:relay:maker:make:bundle';
     /** @var string */
     private $projectRoot;
 
@@ -27,8 +27,9 @@ class MakeBundleCommand extends Command
         $this->projectRoot = (string) $containerBag->get('kernel.project_dir');
     }
 
-    protected function configure()
+    protected function configure(): void
     {
+        $this->setName('dbp:relay:maker:make:bundle');
         $this->setDescription('Create a new bundle');
         $this->addOption('vendor', null, InputOption::VALUE_REQUIRED, 'Vendor');
         $this->addOption('category', null, InputOption::VALUE_REQUIRED, 'Category', 'relay');
@@ -102,6 +103,7 @@ class MakeBundleCommand extends Command
         $this->showPreview($output, $vendor, $category, $uniqueName, $friendlyName, $exampleEntity);
         if (!$noConfirm) {
             $helper = $this->getHelper('question');
+            assert($helper instanceof QuestionHelper);
             $question = new ConfirmationQuestion('Continue? (y/n)', false);
             if (!$helper->ask($input, $output, $question)) {
                 $output->writeln('aborting');
