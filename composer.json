@@ -4,7 +4,7 @@
     "type": "symfony-bundle",
     "license": "AGPL-3.0-or-later",
     "require": {
-        "php": ">=8.1",
+        "php": ">=8.2",
         "symfony/filesystem": "^5.4 || ^6.4",
         "symfony/framework-bundle": "^5.4 || ^6.4",
         "symfony/process": "^5.4 || ^6.4",
@@ -39,7 +39,7 @@
     "config": {
         "sort-packages": true,
         "platform": {
-            "php": "8.1"
+            "php": "8.2"
         }
     },
     "scripts": {
