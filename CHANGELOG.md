@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.1.14
+
+* Add support for Symfony 7.4
+
 ## v0.1.13
 
 * Drop support for PHP 8.1
