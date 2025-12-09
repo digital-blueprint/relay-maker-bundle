@@ -27,7 +27,7 @@ class Kernel extends BaseKernel
     {
         $container->extension('framework', [
             'test' => true,
-            'secret' => '',
+            'secret' => 'something',
         ]);
 
         $container->extension('dbp_relay_maker', []);
