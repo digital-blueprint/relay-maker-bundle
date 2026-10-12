@@ -40,7 +40,7 @@ class MakeBundleCommand extends Command
         $this->addOption('no-confirm', null, InputOption::VALUE_NONE, 'Bypass all confirmation questions, for automation');
     }
 
-    protected function showPreview(OutputInterface $output, string $vendor, string $category, string $uniqueName, string $friendlyName, string $exampleEntity)
+    protected function showPreview(OutputInterface $output, string $vendor, string $category, string $uniqueName, string $friendlyName, string $exampleEntity): void
     {
         $right = function (string $in): string {
             return sprintf('%25s', $in);
@@ -104,7 +104,7 @@ class MakeBundleCommand extends Command
         if (!$noConfirm) {
             $helper = $this->getHelper('question');
             assert($helper instanceof QuestionHelper);
-            $question = new ConfirmationQuestion('Continue? (y/n)', false);
+            $question = new ConfirmationQuestion('Continue? (y/n) ', false);
             if (!$helper->ask($input, $output, $question)) {
                 $output->writeln('aborting');
 

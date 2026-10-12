@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.1.15
+
+* Fix conversion to pascal case for when the input already is in pascal or camel case
+
 ## v0.1.14
 
 * Add support for Symfony 7.4

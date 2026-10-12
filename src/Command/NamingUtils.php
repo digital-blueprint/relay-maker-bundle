@@ -13,7 +13,10 @@ class NamingUtils
 
     public static function normalize(string $in): string
     {
-        return strtolower(str_replace(['-', '_'], ' ', $in));
+        $str = str_replace(['-', '_'], ' ', $in);
+        $str = preg_replace('/(?<!^)(?=[A-Z])/', ' ', $str);
+
+        return strtolower($str);
     }
 
     public static function pascal(string $in): string
